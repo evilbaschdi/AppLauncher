@@ -18,7 +18,7 @@ var concatAppPath = Path.Combine(currentDirectory.Trim(), architecture.Trim(), $
 
 if (File.Exists(concatAppPath))
 {
-    Console.WriteLine($"Running '{concatAppPath}'...");
+    Console.WriteLine($"Executing '{concatAppPath}'...");
     IProcessByPath processByPath = new ProcessByPath();
     processByPath.RunFor(concatAppPath);
 }
