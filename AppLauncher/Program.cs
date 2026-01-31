@@ -1,8 +1,7 @@
 ﻿using System.Runtime.InteropServices;
-using EvilBaschdi.Core.AppHelpers;
 
 Console.WriteLine("Evaluating Architecture...\n");
-var architecture = Enum.GetName(RuntimeInformation.OSArchitecture) ?? throw new ApplicationException("Unknown architecture detected.");
+var architecture = Enum.GetName(RuntimeInformation.OSArchitecture)?.ToLowerInvariant() ?? throw new ApplicationException("Unknown architecture detected.");
 Console.WriteLine($"OS Architecture is {architecture}...\n");
 
 var currentDirectory = Environment.CurrentDirectory;
@@ -61,16 +60,39 @@ else
 if (appPath != null && File.Exists(appPath))
 {
     Console.WriteLine($"Preparing to execute: {appPath}");
+    var appDirectory = Path.GetDirectoryName(appPath) ?? currentDirectory;
+    Console.WriteLine($"Setting working directory to: {appDirectory}");
+
     if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) || appPath == Path.Combine(currentDirectory, architecture, currentDirectoryName))
     {
         Console.WriteLine("Launching native executable...");
-        new ProcessByPath().RunFor(appPath);
+        var process = new System.Diagnostics.Process
+                      {
+                          StartInfo = new System.Diagnostics.ProcessStartInfo
+                                      {
+                                          FileName = appPath,
+                                          WorkingDirectory = appDirectory,
+                                          UseShellExecute = true
+                                      }
+                      };
+        process.Start();
     }
     else if (appPath.EndsWith(".dll", StringComparison.OrdinalIgnoreCase))
     {
         Console.WriteLine("Launching DLL using dotnet...");
-        new ProcessByPath().RunFor($"dotnet {appPath}");
+        var process = new System.Diagnostics.Process
+                      {
+                          StartInfo = new System.Diagnostics.ProcessStartInfo
+                                      {
+                                          FileName = "dotnet",
+                                          Arguments = appPath,
+                                          WorkingDirectory = appDirectory,
+                                          UseShellExecute = true
+                                      }
+                      };
+        process.Start();
     }
+
     Console.WriteLine("Application launch command executed.");
 }
 else
