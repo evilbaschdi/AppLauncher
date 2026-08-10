@@ -53,22 +53,6 @@ Default by `NuGet.config` is myget.org
 | ![myget.org][myGetBadge]       | <https://www.myget.org/F/evilbaschdi/api/v3/index.json>          |
 | ![codeberg.org][codebergBadge] | <https://codeberg.org/api/packages/evilbaschdi/nuget/index.json> |
 
-To use the packages from the feeds above, add a `NuGet.config` file to your solution root:
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<configuration>
-  <packageSources>
-    <clear />
-    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
-    <!-- choose -->
-    <add key="evilbaschdi-myget" value="https://www.myget.org/F/evilbaschdi/api/v3/index.json" />
-    <!-- OR -->
-    <add key="evilbaschdi-codeberg" value="https://codeberg.org/api/packages/evilbaschdi/nuget/index.json" />
-  </packageSources>
-</configuration>
-```
-
 ## Quality & Activity
 
 | Branch                                | Status & Activity                                                                                                                                                        |
