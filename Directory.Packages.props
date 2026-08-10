@@ -4,6 +4,7 @@
     <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="EvilBaschdi.Core" Version="2025.12.9.20" />
+    <PackageVersion Include="EvilBaschdi.Core" Version="2026.6.18.15" />
+    <PackageVersion Include="Spectre.Console" Version="0.57.2" />
   </ItemGroup>
 </Project>
